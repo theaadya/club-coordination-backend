@@ -1,12 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Game {
-    constructor(name, price, category, id) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-        this.id = id;
-    }
-}
-exports.default = Game;
+// import { ObjectId } from "mongodb";
+// export default class Game {
+//     constructor(public name: string, public price: number, public category: string, public id?: ObjectId) {}
+// }
 //# sourceMappingURL=game.js.map

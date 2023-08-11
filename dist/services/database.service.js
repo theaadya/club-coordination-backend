@@ -34,12 +34,18 @@ exports.collections = {};
 function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const client = new mongoDB.MongoClient("mongodb://localhost:27017/gamesDB");
+            const client = new mongoDB.MongoClient("mongodb://localhost:27017/clubcoord");
             yield client.connect();
-            const db = client.db("gamesDB");
-            const gamesCollection = db.collection("games");
-            exports.collections.games = gamesCollection;
-            console.log(`Successfully connected to database: ${db.databaseName} and collection: ${gamesCollection.collectionName}`);
+            const db = client.db("clubcoord");
+            // const gamesCollection: mongoDB.Collection = db.collection("games");
+            const usersCollection = db.collection("users");
+            const eventsCollection = db.collection("events");
+            const clubsCollection = db.collection("clubs");
+            // collections.games = gamesCollection;
+            exports.collections.users = usersCollection;
+            exports.collections.events = eventsCollection;
+            exports.collections.clubs = clubsCollection;
+            console.log(`Successfully connected to database: ${db.databaseName} and collections: ${usersCollection.collectionName}, ${eventsCollection.collectionName}, ${clubsCollection.collectionName}`);
         }
         catch (error) {
             console.error("Error connecting to database:", error);
