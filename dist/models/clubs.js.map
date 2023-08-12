@@ -1,1 +1,1 @@
-{"version":3,"file":"clubs.js","sourceRoot":"","sources":["../../src/models/clubs.ts"],"names":[],"mappings":""}
+{"version":3,"file":"clubs.js","sourceRoot":"","sources":["../../src/models/clubs.ts"],"names":[],"mappings":";;AAEA,MAAqB,IAAI;IACrB,YACW,IAAY,EACZ,WAAmB,EACnB,WAAmB,EACnB,MAAgB,EAChB,KAAa,EACb,OAAiB,EACjB,YAAoB,EACpB,EAAa;QAPb,SAAI,GAAJ,IAAI,CAAQ;QACZ,gBAAW,GAAX,WAAW,CAAQ;QACnB,gBAAW,GAAX,WAAW,CAAQ;QACnB,WAAM,GAAN,MAAM,CAAU;QAChB,UAAK,GAAL,KAAK,CAAQ;QACb,YAAO,GAAP,OAAO,CAAU;QACjB,iBAAY,GAAZ,YAAY,CAAQ;QACpB,OAAE,GAAF,EAAE,CAAW;IAAG,CAAC;CAC/B;AAVD,uBAUC"}

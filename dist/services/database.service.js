@@ -34,14 +34,12 @@ exports.collections = {};
 function connectToDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const client = new mongoDB.MongoClient("mongodb://localhost:27017/clubcoord");
+            const client = new mongoDB.MongoClient("mongodb://127.0.0.1:27017/clubcoord");
             yield client.connect();
             const db = client.db("clubcoord");
-            // const gamesCollection: mongoDB.Collection = db.collection("games");
             const usersCollection = db.collection("users");
             const eventsCollection = db.collection("events");
             const clubsCollection = db.collection("clubs");
-            // collections.games = gamesCollection;
             exports.collections.users = usersCollection;
             exports.collections.events = eventsCollection;
             exports.collections.clubs = clubsCollection;

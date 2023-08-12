@@ -33,7 +33,7 @@ eventRouter.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
-eventRouter.post("/", async (req: Request, res: Response) => {
+eventRouter.post("/requests", async (req: Request, res: Response) => {
     try {
         const newEvent = req.body as Event;
         const result = await collections.events.insertOne(newEvent);

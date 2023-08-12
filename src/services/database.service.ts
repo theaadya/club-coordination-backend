@@ -8,7 +8,7 @@ export const collections: {
 
 export async function connectToDatabase() {
     try {
-        const client: mongoDB.MongoClient = new mongoDB.MongoClient("mongodb://localhost:27017/clubcoord");
+        const client: mongoDB.MongoClient = new mongoDB.MongoClient("mongodb://127.0.0.1:27017/clubcoord");
         await client.connect();
         
         const db: mongoDB.Db = client.db("clubcoord");
