@@ -9,7 +9,7 @@ eventRouter.use(express.json());
 
 eventRouter.get("/", async (_req: Request, res: Response) => {
     try {
-       const event = (await collections.events.find({}).toArray()) as unknown as Event[];
+        const event = (await collections.events.find({}).toArray()) as unknown as Event[];
 
         res.status(200).send(event);
     } catch (error) {
