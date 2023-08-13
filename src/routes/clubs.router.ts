@@ -18,3 +18,17 @@ clubRouter.get("/", async (_req: Request, res: Response) => {
         console.log(error);
     }
 });
+
+clubRouter.post("/", async (req: Request, res: Response) => {
+    try {
+        const newClub = req.body as Club;
+        const result = await collections.clubs.insertOne(newClub);
+
+        result
+            ? res.status(201).send(`Successfully created a new club with id ${result.insertedId}`)
+            : res.status(500).send("Failed to create a new club.");
+    } catch (error) {
+        console.error(error);
+        res.status(400).send(error.message);
+    }
+});
