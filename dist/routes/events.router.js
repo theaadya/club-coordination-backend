@@ -41,7 +41,7 @@ exports.eventRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, 
         res.status(404).send(`Unable to find matching document with id: ${req.params.id}`);
     }
 }));
-exports.eventRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.eventRouter.post("/requests", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newEvent = req.body;
         const result = yield database_service_1.collections.events.insertOne(newEvent);

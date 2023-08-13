@@ -19,8 +19,8 @@ exports.clubRouter = express_1.default.Router();
 exports.clubRouter.use(express_1.default.json());
 exports.clubRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const clubs = (yield database_service_1.collections.events.find({}).toArray());
-        console.log(clubs);
+        const clubs = (yield database_service_1.collections.clubs.find({}).toArray());
+        //console.log(clubs);
         res.status(200).send(clubs);
     }
     catch (error) {
