@@ -48,3 +48,21 @@ clubRouter.post("/", async (req: Request, res: Response) => {
         res.status(400).send(error.message);
     }
 });
+
+clubRouter.put("/:id", async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        const updatedClub: Club = req.body as Club;
+        const query = { _id: new ObjectId(id) };
+      
+        const result = await collections.clubs.updateOne(query, { $set: updatedClub });
+
+        result
+            ? res.status(200).send(`Successfully updated club with id ${id}`)
+            : res.status(304).send(`Club with id: ${id} not updated`);
+    } catch (error) {
+        console.error(error.message);
+        res.status(400).send(error.message);
+    }
+});
