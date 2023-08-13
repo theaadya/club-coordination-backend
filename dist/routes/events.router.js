@@ -27,6 +27,15 @@ exports.eventRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, fu
         res.status(500).send(error.message);
     }
 }));
+exports.eventRouter.get("/approved", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const approvedEvents = (yield database_service_1.collections.events.find({ status: "approved" }).toArray());
+        res.status(200).send(approvedEvents);
+    }
+    catch (error) {
+        res.status(500).send(error.message);
+    }
+}));
 exports.eventRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const id = (_a = req === null || req === void 0 ? void 0 : req.params) === null || _a === void 0 ? void 0 : _a.id;

@@ -94,3 +94,21 @@ eventRouter.delete("/:id", async (req: Request, res: Response) => {
         res.status(400).send(error.message);
     }
 });
+
+eventRouter.post("/:id/registrations", async (req: Request, res: Response) => {
+    const id = req?.params?.id;
+
+    try {
+        const updatedEvent: Event = req.body as Event;
+        const query = { _id: new ObjectId(id) };
+      
+        const result = await collections.events.updateOne(query, { $set: updatedEvent });
+
+        result
+            ? res.status(200).send(`Successfully updated event with id ${id}`)
+            : res.status(304).send(`Event with id: ${id} not updated`);
+    } catch (error) {
+        console.error(error.message);
+        res.status(400).send(error.message);
+    }
+});
