@@ -17,6 +17,16 @@ eventRouter.get("/", async (_req: Request, res: Response) => {
     }
 });
 
+eventRouter.get("/approved", async (_req: Request, res: Response) => {
+    try {
+        const approvedEvents = (await collections.events.find({ status: "approved" }).toArray()) as unknown as Event[];
+
+        res.status(200).send(approvedEvents);
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+});
+
 eventRouter.get("/:id", async (req: Request, res: Response) => {
     const id = req?.params?.id;
 
