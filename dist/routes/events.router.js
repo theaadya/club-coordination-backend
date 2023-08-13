@@ -100,4 +100,20 @@ exports.eventRouter.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 
         res.status(400).send(error.message);
     }
 }));
+exports.eventRouter.post("/:id/registrations", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _d;
+    const id = (_d = req === null || req === void 0 ? void 0 : req.params) === null || _d === void 0 ? void 0 : _d.id;
+    try {
+        const updatedEvent = req.body;
+        const query = { _id: new mongodb_1.ObjectId(id) };
+        const result = yield database_service_1.collections.events.updateOne(query, { $set: updatedEvent });
+        result
+            ? res.status(200).send(`Successfully updated event with id ${id}`)
+            : res.status(304).send(`Event with id: ${id} not updated`);
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(400).send(error.message);
+    }
+}));
 //# sourceMappingURL=events.router.js.map

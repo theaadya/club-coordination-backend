@@ -17,10 +17,30 @@ const express_1 = __importDefault(require("express"));
 const database_service_1 = require("../services/database.service");
 exports.userRouter = express_1.default.Router();
 exports.userRouter.use(express_1.default.json());
-exports.userRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.userRouter.get("/google/:email", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allusers = (yield database_service_1.collections.users.find({}).toArray());
-        res.status(200).send(allusers);
+        const email = req.params.email;
+        const name = req.params.name;
+        const existingUser = yield database_service_1.collections.users.findOne({ email });
+        if (existingUser) {
+            // User exists, perform login
+            res.status(200).send(`User with email ${email} exists. Perform login.`);
+        }
+        else {
+            // User doesn't exist, perform registration before login
+            try {
+                const newUser = {
+                    name,
+                    email,
+                    level: "Student"
+                };
+                const result = yield database_service_1.collections.users.insertOne(newUser);
+                res.status(201).send(`User with email ${email} registered and logged in.`);
+            }
+            catch (error) {
+                res.status(500).send("Failed to register user.");
+            }
+        }
     }
     catch (error) {
         res.status(500).send(error.message);
