@@ -37,3 +37,13 @@ userRouter.get("/google/:email", async (req: Request, res: Response) => {
     }
 });
 
+userRouter.get("/", async (_req: Request, res: Response) => {
+    try {
+        const user = (await collections.users.find({}).toArray()) as unknown as User[];
+        res.status(200).send(user);
+        
+    } catch (error) {
+        res.status(500).send(error.message);
+        console.log(error);
+    }
+});
