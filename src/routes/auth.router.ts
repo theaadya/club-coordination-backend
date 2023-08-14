@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { collections } from "../services/database.service";
 import { createSession, invalidateSession } from "../db";
 import { signJWT } from "../utils/jwt.utils";
-import { requireUser } from "../db/requireUser";
+import { requireUser } from "../middleware/requireUser";
 
 export const authRouter = express.Router();
 
