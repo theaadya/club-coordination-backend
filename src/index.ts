@@ -4,7 +4,7 @@ import cors from "cors";
 import { connectToDatabase } from "./services/database.service"
 import { eventRouter } from "./routes/events.router";
 import { clubRouter } from "./routes/clubs.router";
-import { userRouter } from "./routes/users.router";
+import { authRouter } from "./routes/auth.router";
 
 const app = express();
 const port = 8080; // default port to listen
@@ -24,7 +24,7 @@ connectToDatabase()
     .then(() => {
         app.use("/events", eventRouter);
         app.use("/clubs", clubRouter);
-        app.use("/auth", userRouter);
+        app.use("/auth", authRouter);
 
         app.listen(port, () => {
             console.log(`Server started at http://localhost:${port}`);

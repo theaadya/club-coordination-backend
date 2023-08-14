@@ -43,7 +43,7 @@ authRouter.post("/google/:email", async (req: Request, res: Response) => {
 // get the session session
 
 // log out handler
-authRouter.delete("/google/callback", async (req: Request, res: Response) => {
+authRouter.get("/google/callback", async (req: Request, res: Response) => {
   // @ts-ignore
   return res.send(req.user);
 });
