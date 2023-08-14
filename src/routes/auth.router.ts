@@ -1,25 +1,21 @@
 import express, { Request, Response } from "express";
-import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
-import User from "../models/users";
 import { createSession, invalidateSession } from "../db";
-import { signJWT, verifyJWT } from "../utils/jwt.utils";
+import { signJWT } from "../utils/jwt.utils";
+import { requireUser } from "../db/requireUser";
 
 export const authRouter = express.Router();
 
 authRouter.use(express.json());
 
-// login handler
-authRouter.post("/google/:email", async (req: Request, res: Response) => {
-  const email = req.params.email;
-  const existingUser = await collections.users.findOne({ email });
-
-
-  const session = createSession(email, existingUser.name);
+authRouter.post("/api/session", async (req: Request, res: Response) => {
+  const email = req.body.email;
+  const user = await collections.users.findOne({ email });
+  const session = createSession(email, user.name);
 
   // create access token
   const accessToken = signJWT(
-    { email: existingUser.email, name: existingUser.name, sessionId: session.sessionId },
+    { email: user.email, name: user.name, sessionId: session.sessionId },
     "5s"
   );
 
@@ -36,19 +32,16 @@ authRouter.post("/google/:email", async (req: Request, res: Response) => {
     httpOnly: true,
   });
 
-  // send user back
   return res.send(session);
 });
 
-// get the session session
 
-// log out handler
-authRouter.get("/google/callback", async (req: Request, res: Response) => {
+authRouter.get("/api/session", requireUser, async (req: Request, res: Response) => {
   // @ts-ignore
   return res.send(req.user);
 });
 
-authRouter.delete("/google/logout", async (req: Request, res: Response) => {
+authRouter.delete("/api/session", requireUser, async (req: Request, res: Response) => {
   res.cookie("accessToken", "", {
     maxAge: 0,
     httpOnly: true,
