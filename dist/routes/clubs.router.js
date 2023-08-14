@@ -56,4 +56,20 @@ exports.clubRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(400).send(error.message);
     }
 }));
+exports.clubRouter.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _b;
+    const id = (_b = req === null || req === void 0 ? void 0 : req.params) === null || _b === void 0 ? void 0 : _b.id;
+    try {
+        const updatedClub = req.body;
+        const query = { _id: new mongodb_1.ObjectId(id) };
+        const result = yield database_service_1.collections.clubs.updateOne(query, { $set: updatedClub });
+        result
+            ? res.status(200).send(`Successfully updated club with id ${id}`)
+            : res.status(304).send(`Club with id: ${id} not updated`);
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(400).send(error.message);
+    }
+}));
 //# sourceMappingURL=clubs.router.js.map
