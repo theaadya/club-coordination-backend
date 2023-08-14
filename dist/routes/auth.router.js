@@ -41,7 +41,7 @@ exports.authRouter.post("/google/:email", (req, res) => __awaiter(void 0, void 0
 }));
 // get the session session
 // log out handler
-exports.authRouter.delete("/google/callback", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.authRouter.get("/google/callback", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // @ts-ignore
     return res.send(req.user);
 }));

@@ -47,4 +47,14 @@ exports.userRouter.get("/google/:email", (req, res) => __awaiter(void 0, void 0,
         console.log(error);
     }
 }));
+exports.userRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = (yield database_service_1.collections.users.find({}).toArray());
+        res.status(200).send(user);
+    }
+    catch (error) {
+        res.status(500).send(error.message);
+        console.log(error);
+    }
+}));
 //# sourceMappingURL=users.router.js.map
