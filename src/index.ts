@@ -1,6 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import deserializeUser from "./db/deserializeUser";
 import { connectToDatabase } from "./services/database.service"
 import { eventRouter } from "./routes/events.router";
 import { clubRouter } from "./routes/clubs.router";
@@ -11,8 +12,10 @@ const app = express();
 const port = 8080; // default port to listen
 
 app.use(cookieParser());
-//app.use(express.json());
-//app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(deserializeUser);
 
 app.use(
   cors({
