@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import deserializeUser from "./db/deserializeUser";
+import deserializeUser from "./middleware/deserializeUser";
 import { connectToDatabase } from "./services/database.service"
 import { eventRouter } from "./routes/events.router";
 import { clubRouter } from "./routes/clubs.router";
