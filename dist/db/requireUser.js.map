@@ -1,0 +1,1 @@
+{"version":3,"file":"requireUser.js","sourceRoot":"","sources":["../../src/db/requireUser.ts"],"names":[],"mappings":";;;AAEA,SAAgB,WAAW,CAAC,GAAY,EAAE,GAAa,EAAE,IAAkB;IACzE,aAAa;IACb,IAAI,CAAC,GAAG,CAAC,IAAI,EAAE;QACb,OAAO,GAAG,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,IAAI,CAAC,iBAAiB,CAAC,CAAC;KAChD;IAED,OAAO,IAAI,EAAE,CAAC;AAChB,CAAC;AAPD,kCAOC"}
