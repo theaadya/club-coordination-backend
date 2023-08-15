@@ -17,15 +17,15 @@ const express_1 = __importDefault(require("express"));
 const database_service_1 = require("../services/database.service");
 const db_1 = require("../db");
 const jwt_utils_1 = require("../utils/jwt.utils");
+const requireUser_1 = require("../middleware/requireUser");
 exports.authRouter = express_1.default.Router();
 exports.authRouter.use(express_1.default.json());
-// login handler
-exports.authRouter.post("/google/:email", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const email = req.params.email;
-    const existingUser = yield database_service_1.collections.users.findOne({ email });
-    const session = db_1.createSession(email, existingUser.name);
+exports.authRouter.post("/api/session", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const email = req.body.email;
+    const user = yield database_service_1.collections.users.findOne({ email });
+    const session = db_1.createSession(email, user.name);
     // create access token
-    const accessToken = jwt_utils_1.signJWT({ email: existingUser.email, name: existingUser.name, sessionId: session.sessionId }, "5s");
+    const accessToken = jwt_utils_1.signJWT({ email: user.email, name: user.name, sessionId: session.sessionId }, "5s");
     const refreshToken = jwt_utils_1.signJWT({ sessionId: session.sessionId }, "1y");
     // set access token in cookie
     res.cookie("accessToken", accessToken, {
@@ -36,16 +36,13 @@ exports.authRouter.post("/google/:email", (req, res) => __awaiter(void 0, void 0
         maxAge: 3.154e10,
         httpOnly: true,
     });
-    // send user back
     return res.send(session);
 }));
-// get the session session
-// log out handler
-exports.authRouter.get("/google/callback", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.authRouter.get("/api/session", requireUser_1.requireUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // @ts-ignore
     return res.send(req.user);
 }));
-exports.authRouter.delete("/google/logout", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.authRouter.delete("/api/session", requireUser_1.requireUser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.cookie("accessToken", "", {
         maxAge: 0,
         httpOnly: true,
