@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
-const deserializeUser_1 = __importDefault(require("./middleware/deserializeUser"));
+const deserializeUser_1 = __importDefault(require("./db/deserializeUser"));
 const database_service_1 = require("./services/database.service");
 const events_router_1 = require("./routes/events.router");
 const clubs_router_1 = require("./routes/clubs.router");
