@@ -101,15 +101,18 @@ exports.eventRouter.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 
     }
 }));
 exports.eventRouter.post("/:id/registrations", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _d;
-    const id = (_d = req === null || req === void 0 ? void 0 : req.params) === null || _d === void 0 ? void 0 : _d.id;
+    const id = req.params.id;
+    const { email } = req.body; // Assuming you send the email in the request body
     try {
-        const updatedEvent = req.body;
         const query = { _id: new mongodb_1.ObjectId(id) };
-        const result = yield database_service_1.collections.events.updateOne(query, { $set: updatedEvent });
-        result
-            ? res.status(200).send(`Successfully updated event with id ${id}`)
-            : res.status(304).send(`Event with id: ${id} not updated`);
+        const update = { $push: { participants: email } }; // Push the email into the participants array
+        const result = yield database_service_1.collections.events.updateOne(query, update);
+        if (result.modifiedCount > 0) {
+            res.status(200).send(`Successfully updated event with id ${id}`);
+        }
+        else {
+            res.status(304).send(`Event with id: ${id} not updated`);
+        }
     }
     catch (error) {
         console.error(error.message);

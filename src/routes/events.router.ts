@@ -95,20 +95,24 @@ eventRouter.delete("/:id", async (req: Request, res: Response) => {
     }
 });
 
-eventRouter.post("/:id/registrations", async (req: Request, res: Response) => {
-    const id = req?.params?.id;
-
+eventRouter.post("/:id/registrations", async (req, res) => {
+    const id = req.params.id;
+    const { email } = req.body; // Assuming you send the email in the request body
+  
     try {
-        const updatedEvent: Event = req.body as Event;
-        const query = { _id: new ObjectId(id) };
-      
-        const result = await collections.events.updateOne(query, { $set: updatedEvent });
-
-        result
-            ? res.status(200).send(`Successfully updated event with id ${id}`)
-            : res.status(304).send(`Event with id: ${id} not updated`);
+      const query = { _id: new ObjectId(id) };
+      const update = { $push: { participants: email } }; // Push the email into the participants array
+  
+      const result = await collections.events.updateOne(query, update);
+  
+      if (result.modifiedCount > 0) {
+        res.status(200).send(`Successfully updated event with id ${id}`);
+      } else {
+        res.status(304).send(`Event with id: ${id} not updated`);
+      }
     } catch (error) {
-        console.error(error.message);
-        res.status(400).send(error.message);
+      console.error(error.message);
+      res.status(400).send(error.message);
     }
-});
+  });
+  
