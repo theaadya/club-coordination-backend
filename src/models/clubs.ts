@@ -5,6 +5,7 @@ export default class Club {
         public name: string,
         public description: string,
         public coordinator: string,
+        public status: string,
         public events: string[],
         public email: string, 
         public members: string[],
