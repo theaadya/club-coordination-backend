@@ -9,9 +9,9 @@ clubRouter.use(express.json());
 
 clubRouter.get("/", async (_req: Request, res: Response) => {
     try {
-        const clubs = (await collections.clubs.find({}).toArray()) as unknown as Club[];
+        const approvedClubs = (await collections.clubs.find({ status: "Approved" }).toArray()) as unknown as Club[];
         //console.log(clubs);
-        res.status(200).send(clubs);
+        res.status(200).send(approvedClubs);
         
     } catch (error) {
         res.status(500).send(error.message);
