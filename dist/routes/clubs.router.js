@@ -20,9 +20,9 @@ exports.clubRouter = express_1.default.Router();
 exports.clubRouter.use(express_1.default.json());
 exports.clubRouter.get("/", (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const clubs = (yield database_service_1.collections.clubs.find({}).toArray());
+        const approvedClubs = (yield database_service_1.collections.clubs.find({ status: "Approved" }).toArray());
         //console.log(clubs);
-        res.status(200).send(clubs);
+        res.status(200).send(approvedClubs);
     }
     catch (error) {
         res.status(500).send(error.message);
